@@ -7,7 +7,7 @@ namespace ChessEngine
 {
     class Human : IPlayer
     {
-        public string PieceSpriteFolderName { get; set; } = "Derp";
+        public string PieceSpriteFolderName { get; set; } = "Normal";
 
         public Move GetMove(Board board)
         {

@@ -61,8 +61,8 @@ namespace ChessEngine
             Color[] selectedData = new Color[100 * 100];
             for (int i = 0; i < whiteData.Length; i++)
             {
-                whiteData[i] = Color.White;
-                blackData[i] = Color.Black;
+                whiteData[i] = Color.Beige;
+                blackData[i] = Color.Sienna;
                 var x = (i % 100) - 50;
                 var y = (i / 100) - 50;
                 if (x * x + y * y < 10 * 10)
@@ -75,11 +75,8 @@ namespace ChessEngine
 
             _font = Content.Load<SpriteFont>("Font");
 
-            _player1 = new Engines.RandomMoves();
             _player1 = new Engines.HyperAgression();
             _player2 = new Engines.HyperAgression();
-            //_player1 = new Human();
-            //_player2 = new Human();
 
 
             _board = new Board("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"); // Start position
@@ -96,7 +93,7 @@ namespace ChessEngine
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             var player1Folder = _player1.PieceSpriteFolderName ?? "Derp";
-            var player2Folder = _player1.PieceSpriteFolderName ?? "Derp";
+            var player2Folder = _player2.PieceSpriteFolderName ?? "Derp";
 
             _blackPawnSprite =   Content.Load<Texture2D>($"SpritePngs/{player2Folder}/BlackPawn");
             _whitePawnSprite =   Content.Load<Texture2D>($"SpritePngs/{player1Folder}/WhitePawn");
@@ -218,7 +215,7 @@ namespace ChessEngine
             foreach (var piece in _board.Pieces)
             {
                 if (piece != _grabbed)
-                    _spriteBatch.Draw(GetSprite(piece), new Vector2(piece.X * 100, piece.Y * 100), Color.White);
+                    _spriteBatch.Draw(GetSprite(piece), new Rectangle(piece.X * 100, piece.Y * 100,100,100), Color.White);
             }
 
             // Draw grabbed 
