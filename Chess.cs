@@ -76,6 +76,7 @@ namespace ChessEngine
 
 
             _board = new Board("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"); // Start position
+            _board.SaveOldBoads = true;
             //SetPieces("KBq/6P/////p");
 
             _lastPickup = 100;
@@ -107,7 +108,10 @@ namespace ChessEngine
                 Exit();
 
             if (Keyboard.GetState().IsKeyDown(Keys.R))
+            {
                 _board = new Board("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
+                _board.SaveOldBoads = true;
+            }
 
             if (!_board.GameIsOver)
             {

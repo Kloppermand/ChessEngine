@@ -16,6 +16,8 @@ namespace ChessEngine
         public int MoveCount { get; set; } = 0;
         private int _50MoveCounter = 0;
         private List<Move> _allMoves;
+        private List<string> _oldBoards = new List<string>();
+        public bool SaveOldBoads { get; set; } = false;
         public List<Move> AllMoves { get {
                 if (_allMoves is null)
                     _allMoves = GetAllMoves();
@@ -34,6 +36,9 @@ namespace ChessEngine
         {
             if (GameIsOver)
                 throw new GameOverException($"Game is already done, {GetWinner()} won!");
+
+            if (SaveOldBoads)
+                _oldBoards.Add(GetFen());
 
             var pieceToMove = Pieces.Find(p => p.GetPosition() == move.SourceSquare);
             var targetPiece = Pieces.Find(p => p.GetPosition() == move.TargetSquare);
@@ -121,6 +126,76 @@ namespace ChessEngine
             }
 
             return allMoves;
+        }
+
+        public string GetFen()
+        {
+            string fen = "";
+            for (int i = 1; i <= 8; i++)
+            {
+                int blanks = 0;
+                for (int j = 1; j <=8; j++)
+                {
+                    var current = Pieces.Find(p => p.GetPosition() == new Vector2(j, i));
+                    if (current is null)
+                    {
+                        blanks++;
+                        continue;
+                    }
+
+                    if (blanks > 0)
+                        fen += blanks.ToString();
+
+                    switch (current.GetType().Name)
+                    {
+                        case nameof(Pawn):
+                            if (current.IsBlack)
+                                fen += "p";
+                            else
+                                fen += "P";
+                            break;
+                        case nameof(Rook):
+                            if (current.IsBlack)
+                                fen += "r";
+                            else
+                                fen += "R";
+                            break;
+                        case nameof(Knight):
+                            if (current.IsBlack)
+                                fen += "n";
+                            else
+                                fen += "N";
+                            break;
+                        case nameof(Bishop):
+                            if (current.IsBlack)
+                                fen += "b";
+                            else
+                                fen += "B";
+                            break;
+                        case nameof(Queen):
+                            if (current.IsBlack)
+                                fen += "q";
+                            else
+                                fen += "Q";
+                            break;
+                        case nameof(King):
+                            if (current.IsBlack)
+                                fen += "k";
+                            else
+                                fen += "K";
+                            break;
+                        default:
+                            break;
+                    }
+
+                    blanks = 0;
+                }
+                if (blanks > 0)
+                    fen += (blanks).ToString();
+                if(i < 8)
+                    fen += "/";
+            }
+            return fen;
         }
 
         public void SetPieces(string posistion)
