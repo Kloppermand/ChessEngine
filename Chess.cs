@@ -14,18 +14,7 @@ namespace ChessEngine
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private Song _sounds;
-        private Texture2D _blackPawnSprite;
-        private Texture2D _whitePawnSprite;
-        private Texture2D _blackRookSprite;
-        private Texture2D _whiteRookSprite;
-        private Texture2D _blackKnightSprite;
-        private Texture2D _whiteKnightSprite;
-        private Texture2D _blackBishopSprite;
-        private Texture2D _whiteBishopSprite;
-        private Texture2D _whiteQueenSprite;
-        private Texture2D _blackQueenSprite;
-        private Texture2D _blackKingSprite;
-        private Texture2D _whiteKingSprite;
+        private Dictionary<string, Texture2D> _sprites;
         private Texture2D _whiteSquare;
         private Texture2D _blackSquare;
         private Texture2D _selected;
@@ -95,18 +84,19 @@ namespace ChessEngine
             var player1SpriteFolder = _player1.PieceSpriteFolderName.ToString() ?? "Derp";
             var player2SpriteFolder = _player2.PieceSpriteFolderName.ToString() ?? "Derp";
 
-            _blackPawnSprite =   Content.Load<Texture2D>($"SpritePngs/{player2SpriteFolder}/BlackPawn");
-            _whitePawnSprite =   Content.Load<Texture2D>($"SpritePngs/{player1SpriteFolder}/WhitePawn");
-            _blackRookSprite =   Content.Load<Texture2D>($"SpritePngs/{player2SpriteFolder}/BlackRook");
-            _whiteRookSprite =   Content.Load<Texture2D>($"SpritePngs/{player1SpriteFolder}/WhiteRook");
-            _blackKnightSprite = Content.Load<Texture2D>($"SpritePngs/{player2SpriteFolder}/BlackKnight");
-            _whiteKnightSprite = Content.Load<Texture2D>($"SpritePngs/{player1SpriteFolder}/WhiteKnight");
-            _blackBishopSprite = Content.Load<Texture2D>($"SpritePngs/{player2SpriteFolder}/BlackBishop");
-            _whiteBishopSprite = Content.Load<Texture2D>($"SpritePngs/{player1SpriteFolder}/WhiteBishop");
-            _blackQueenSprite =  Content.Load<Texture2D>($"SpritePngs/{player2SpriteFolder}/BlackQueen");
-            _whiteQueenSprite =  Content.Load<Texture2D>($"SpritePngs/{player1SpriteFolder}/WhiteQueen");
-            _blackKingSprite =   Content.Load<Texture2D>($"SpritePngs/{player2SpriteFolder}/BlackKing");
-            _whiteKingSprite =   Content.Load<Texture2D>($"SpritePngs/{player1SpriteFolder}/WhiteKing");
+            _sprites = new Dictionary<string, Texture2D>();
+            _sprites.Add("blackPawnSprite", Content.Load<Texture2D>($"SpritePngs/{player2SpriteFolder}/BlackPawn"));
+            _sprites.Add("whitePawnSprite", Content.Load<Texture2D>($"SpritePngs/{player1SpriteFolder}/WhitePawn"));
+            _sprites.Add("blackRookSprite", Content.Load<Texture2D>($"SpritePngs/{player2SpriteFolder}/BlackRook"));
+            _sprites.Add("whiteRookSprite", Content.Load<Texture2D>($"SpritePngs/{player1SpriteFolder}/WhiteRook"));
+            _sprites.Add("blackKnightSprite", Content.Load<Texture2D>($"SpritePngs/{player2SpriteFolder}/BlackKnight"));
+            _sprites.Add("whiteKnightSprite", Content.Load<Texture2D>($"SpritePngs/{player1SpriteFolder}/WhiteKnight"));
+            _sprites.Add("blackBishopSprite", Content.Load<Texture2D>($"SpritePngs/{player2SpriteFolder}/BlackBishop"));
+            _sprites.Add("whiteBishopSprite", Content.Load<Texture2D>($"SpritePngs/{player1SpriteFolder}/WhiteBishop"));
+            _sprites.Add("blackQueenSprite", Content.Load<Texture2D>($"SpritePngs/{player2SpriteFolder}/BlackQueen"));
+            _sprites.Add("whiteQueenSprite", Content.Load<Texture2D>($"SpritePngs/{player1SpriteFolder}/WhiteQueen"));
+            _sprites.Add("blackKingSprite", Content.Load<Texture2D>($"SpritePngs/{player2SpriteFolder}/BlackKing"));
+            _sprites.Add("whiteKingSprite", Content.Load<Texture2D>($"SpritePngs/{player1SpriteFolder}/WhiteKing"));
 
             var player1SoundFolder = _player1.SoundsFolderName.ToString() ?? "Normal";
             var player2SoundFolder = _player2.SoundsFolderName.ToString() ?? "Normal";
@@ -252,17 +242,17 @@ namespace ChessEngine
                 switch (piece.GetType().Name)
                 {
                     case nameof(Pieces.Pawn):
-                        return _blackPawnSprite;
+                        return _sprites["blackPawnSprite"];
                     case nameof(Pieces.Rook):
-                        return _blackRookSprite;
+                        return _sprites["blackRookSprite"];
                     case nameof(Pieces.Bishop):
-                        return _blackBishopSprite;
+                        return _sprites["blackBishopSprite"];
                     case nameof(Pieces.Knight):
-                        return _blackKnightSprite;
+                        return _sprites["blackKnightSprite"];
                     case nameof(Pieces.Queen):
-                        return _blackQueenSprite;
+                        return _sprites["blackQueenSprite"];
                     case nameof(Pieces.King):
-                        return _blackKingSprite;
+                        return _sprites["blackKingSprite"];
                     default:
                         return null;
                 }
@@ -272,17 +262,17 @@ namespace ChessEngine
                 switch (piece.GetType().Name)
                 {
                     case nameof(Pieces.Pawn):
-                        return _whitePawnSprite;
+                        return _sprites["whitePawnSprite"];
                     case nameof(Pieces.Rook):
-                        return _whiteRookSprite;
+                        return _sprites["whiteRookSprite"];
                     case nameof(Pieces.Bishop):
-                        return _whiteBishopSprite;
+                        return _sprites["whiteBishopSprite"];
                     case nameof(Pieces.Knight):
-                        return _whiteKnightSprite;
+                        return _sprites["whiteKnightSprite"];
                     case nameof(Pieces.Queen):
-                        return _whiteQueenSprite;
+                        return _sprites["whiteQueenSprite"];
                     case nameof(Pieces.King):
-                        return _whiteKingSprite;
+                        return _sprites["whiteKingSprite"];
                     default:
                         return null;
                 }
