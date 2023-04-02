@@ -39,7 +39,7 @@ namespace ChessEngine.Pieces
             }
 
             var list = Neighbours().Where(p => p.X < 9 && p.X > 0 && p.Y < 9 && p.Y > 0)
-                .Where(m => !attackedSquares.Contains(m)).Where(m => !pieces.Select(p => p.GetPosition()).Contains(m))
+                .Where(m => !attackedSquares.Contains(m)).Where(m => !pieces.Where(p=> p.IsBlack == IsBlack).Select(p => p.GetPosition()).Contains(m))
                 .ToList(); ;
 
             // Castle

@@ -74,8 +74,10 @@ namespace ChessEngine
             _font = Content.Load<SpriteFont>("Font");
 
             _player1 = new Engines.RandomMoves();
+            _player1 = new Engines.HyperAgression();
             _player2 = new Engines.HyperAgression();
-            _player1 = new Human();
+            //_player1 = new Human();
+            //_player2 = new Human();
 
 
             _board = new Board("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"); // Start position

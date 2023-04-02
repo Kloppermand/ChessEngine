@@ -8,10 +8,11 @@ namespace ChessEngine.Engines
     class HyperAgression : IPlayer
     {
         private bool _playerIsBlack;
+        private Random rng = new Random();
         public Move GetMove(Board board)
         {
             _playerIsBlack = board.IsBlackMove;
-            Move bestMove = board.AllMoves[0];
+            List<Move> bestMoves = new List<Move>();
             double bestValue = -2000;
 
             foreach (var move in board.AllMoves)
@@ -23,11 +24,16 @@ namespace ChessEngine.Engines
                 if(value > bestValue)
                 {
                     bestValue = value;
-                    bestMove = move;
+                    bestMoves = new List<Move>();
                 }
+                if(value == bestValue)
+                {
+                    bestMoves.Add(move);
+                }
+
             }
 
-            return bestMove;
+            return bestMoves[rng.Next(0,bestMoves.Count-1)];
         }
 
         private int GetBoardValue(Board board)
