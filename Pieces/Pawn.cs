@@ -9,7 +9,7 @@ namespace ChessEngine.Pieces
 {
     class Pawn : Piece
     {
-        public bool CanBeEnPassant { get; set; }
+        public bool CanBeEnPassant { get; set; } = true;
         public Pawn(bool isBlack, int x, int y) : base(isBlack, x, y)
         {
             Value = 1;
@@ -48,7 +48,7 @@ namespace ChessEngine.Pieces
             var left = new Vector2(X - 1, IsBlack ? Y + 1 : Y - 1);
             if (pieces.Any(p => p.X == left.X && p.Y == left.Y && p.IsBlack != IsBlack))
                 list.Add(left);
-            // En Passant right
+            // En Passant left
             var epLeft = new Vector2(X - 1, Y);
             if (pieces.Where(p => p.X == epLeft.X && p.Y == epLeft.Y && p.IsBlack != IsBlack && p.GetType().Name.Equals(nameof(Pawn))).Select(p => (Pawn)p).Any(p => p.CanBeEnPassant))
                 list.Add(left);
