@@ -54,7 +54,8 @@ namespace ChessEngine.Pieces
                 list.Add(left);
 
             // Double move
-            if (!HasMoved)
+            var twoInFront = new Vector2(X, IsBlack ? Y + 2 : Y - 2);
+            if (!HasMoved && !pieces.Any(p => p.X == twoInFront.X && p.Y == twoInFront.Y) && !pieces.Any(p => p.X == inFront.X && p.Y == inFront.Y))
                 list.Add(new Vector2(X, IsBlack ? Y + 2 : Y - 2));
 
             return list.Where(p => p.X < 9 && p.X > 0 && p.Y < 9 && p.Y > 0).ToList();

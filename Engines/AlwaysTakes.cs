@@ -6,8 +6,10 @@ namespace ChessEngine.Engines
 {
     class AlwaysTakes : IPlayer
     {
+        private bool _playerIsBlack;
         public Move GetMove(Board board)
         {
+            _playerIsBlack = board.IsBlackMove;
             Move bestMove = board.AllMoves[0];
             int bestValue = -2000;
 
@@ -31,7 +33,7 @@ namespace ChessEngine.Engines
             int value = 0;
             foreach (var piece in board.Pieces)
             {
-                bool isSameColor = piece.IsBlack == board.IsBlackMove;
+                bool isSameColor = piece.IsBlack == _playerIsBlack;
                 value += piece.Value * (isSameColor ? 1 : -1);
             }
             return value;

@@ -39,14 +39,14 @@ namespace ChessEngine.Pieces
             }
 
             var list = Neighbours().Where(p => p.X < 9 && p.X > 0 && p.Y < 9 && p.Y > 0)
-                .Where(m => !attackedSquares.Contains(m))
+                .Where(m => !attackedSquares.Contains(m)).Where(m => !pieces.Select(p => p.GetPosition()).Contains(m))
                 .ToList(); ;
 
             // Castle
             if (!HasMoved)
             {
-                var rook1CanCastle = true;
                 var rook1 = pieces.Find(p => p.GetPosition() == new Vector2(1, Y) && p.GetType().Name.Equals(nameof(Pieces.Rook)));
+                var rook1CanCastle = rook1?.HasMoved ?? false;
                 if (rook1 is object && !rook1.HasMoved)
                 { // Check that squares inbetween are empty.
                     for (int i = 2; i < X; i++)
@@ -56,8 +56,8 @@ namespace ChessEngine.Pieces
                     }
                 }
 
-                var rook2CanCastle = true;
                 var rook2 = pieces.Find(p => p.GetPosition() == new Vector2(8, Y) && p.GetType().Name.Equals(nameof(Pieces.Rook)));
+                var rook2CanCastle = rook2?.HasMoved ?? false;
                 if (rook2 is object && !rook2.HasMoved)
                 { // Check that squares inbetween are empty.
                     for (int i = 7; i > X; i--)

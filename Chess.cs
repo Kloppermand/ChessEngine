@@ -73,11 +73,11 @@ namespace ChessEngine
 
             _player1 = new Engines.RandomMoves();
             _player2 = new Engines.AlwaysTakes();
+            //_player2 = new Human();
 
 
             _board = new Board("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"); // Start position
             _board.SaveOldBoads = true;
-            //SetPieces("KBq/6P/////p");
 
             _lastPickup = 100;
 
@@ -118,7 +118,7 @@ namespace ChessEngine
                 _lastPickup++;
                 var currentPlayer = _board.IsBlackMove ? _player2 : _player1;
 
-                if (!_board.IsBlackMove && currentPlayer.GetType().Name.Equals(nameof(Human)))
+                if (currentPlayer.GetType().Name.Equals(nameof(Human)))
                 {
                     _mouse = Mouse.GetState();
                     if (_mouse.LeftButton == ButtonState.Pressed)
