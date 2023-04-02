@@ -76,7 +76,7 @@ namespace ChessEngine
             _font = Content.Load<SpriteFont>("Font");
 
             _player1 = new Engines.HyperAgression();
-            _player2 = new Engines.HyperAgression();
+            _player2 = new Engines.Pacifist();
 
 
             _board = new Board("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"); // Start position
