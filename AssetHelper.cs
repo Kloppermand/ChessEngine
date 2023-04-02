@@ -15,6 +15,7 @@ namespace ChessEngine
 
         public enum Sounds
         {
+            Derp,
             Normal
         }
     }

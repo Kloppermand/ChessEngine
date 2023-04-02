@@ -20,6 +20,12 @@
 /processorParam:TextureFormat=Compressed
 /build:File.spritefont;Font.spritefont
 
+#begin Sounds/Derp/Move.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Sounds/Derp/Move.mp3
+
 #begin Sounds/Normal/Move.mp3
 /importer:Mp3Importer
 /processor:SongProcessor

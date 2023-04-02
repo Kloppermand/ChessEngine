@@ -13,7 +13,7 @@ namespace ChessEngine
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        private Song _sounds;
+        private Dictionary<string, Song> _sounds;
         private Dictionary<string, Texture2D> _sprites;
         private Texture2D _whiteSquare;
         private Texture2D _blackSquare;
@@ -65,7 +65,7 @@ namespace ChessEngine
             _font = Content.Load<SpriteFont>("Font");
 
             _player1 = new Engines.HyperAgression();
-            _player2 = new Engines.Pacifist();
+            _player2 = new Engines.RandomMoves();
 
 
             _board = new Board("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR b"); // Start position
@@ -101,8 +101,9 @@ namespace ChessEngine
             var player1SoundFolder = _player1.SoundsFolderName.ToString() ?? "Normal";
             var player2SoundFolder = _player2.SoundsFolderName.ToString() ?? "Normal";
 
-            _sounds = Content.Load<Song>($"Sounds/{player1SoundFolder}/Move");
-            _sounds = Content.Load<Song>($"Sounds/{player2SoundFolder}/Move");
+            _sounds = new Dictionary<string, Song>();
+            _sounds.Add("whiteMove",Content.Load<Song>($"Sounds/{player1SoundFolder}/Move"));
+            _sounds.Add("blackMove",Content.Load<Song>($"Sounds/{player2SoundFolder}/Move"));
         }
 
         protected override void Update(GameTime gameTime)
@@ -157,8 +158,8 @@ namespace ChessEngine
 
                                     if (targetPiece is null || targetPiece.IsBlack != _grabbed.IsBlack)
                                     {
+                                        MediaPlayer.Play(_sounds[_board.IsBlackMove? "blackMove": "whiteMove"]);
                                         _board.MovePiece(new Move(_grabbed.GetPosition(), new Vector2(clickedX, clickedY)));
-                                        MediaPlayer.Play(_sounds);
                                         _grabbed = null;
                                         _lastPickup = 0;
                                     }
@@ -170,8 +171,8 @@ namespace ChessEngine
                 }
                 else
                 {
+                    MediaPlayer.Play(_sounds[_board.IsBlackMove ? "blackMove" : "whiteMove"]);
                     _board.MovePiece(currentPlayer.GetMove(new Board(_board)));
-                    MediaPlayer.Play(_sounds);
                     _lastMove = 0;
                 }
             }
