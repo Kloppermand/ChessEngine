@@ -32,7 +32,21 @@ namespace ChessEngine
         {
             SetPieces(startPosistion);
         }
-        public void MovePiece(Move move)
+        public Board(Board other)
+        {
+            Pieces = new List<Piece>(other.Pieces.Select(p => p.Copy()));
+            IsBlackMove = other.IsBlackMove;
+            GameIsOver = other.GameIsOver;
+            MoveCount = other.MoveCount;
+            SaveOldBoads = other.SaveOldBoads;
+        }
+
+        public Board Copy()
+        {
+            return new Board(this);
+        }
+
+        public Board MovePiece(Move move)
         {
             if (GameIsOver)
                 throw new GameOverException($"Game is already done, {GetWinner()} won!");
@@ -108,6 +122,8 @@ namespace ChessEngine
             // Stalemate
             if (AllMoves.Count < 1)
                 GameIsOver = true;
+
+            return this;
         }
 
         private List<Move> GetAllMoves()
@@ -254,14 +270,6 @@ namespace ChessEngine
                 }
                 x++;
             }
-        }
-        public Board Copy()
-        {
-            return new Board
-            {
-                Pieces = this.Pieces,
-                IsBlackMove = this.IsBlackMove
-            };
         }
 
         public string GetWinner()

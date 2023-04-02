@@ -14,6 +14,16 @@ namespace ChessEngine.Pieces
         {
             Value = 1;
         }
+        private Pawn(bool isBlack, int x, int y, bool hasMoved) : base(isBlack, x, y, hasMoved)
+        {
+            Value = 1;
+        }
+        public override Piece Copy()
+        {
+            var pawn = new Pawn(IsBlack, X, Y);
+            pawn.CanBeEnPassant = this.CanBeEnPassant;
+            return pawn;
+        }
 
         internal override List<Vector2> GetPossibleMoves(List<Piece> pieces, bool ignoreKing = false)
         {

@@ -13,6 +13,11 @@ namespace ChessEngine.Pieces
             Value = 3;
         }
 
+        public override Piece Copy()
+        {
+            return new Bishop(IsBlack, X, Y);
+        }
+
         internal override List<Vector2> GetPossibleMoves(List<Piece> pieces, bool ignoreKing = false)
         {
             var list = new List<Vector2>();

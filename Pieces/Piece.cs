@@ -23,6 +23,18 @@ namespace ChessEngine.Pieces
             Y = y;
             IsBlack = isBlack;
         }
+        public Piece(bool isBlack, int x, int y, bool hasMoved)
+        {
+            X = x;
+            Y = y;
+            IsBlack = isBlack;
+            HasMoved = HasMoved;
+        }
+        virtual public Piece Copy()
+        {
+            throw new NotImplementedException();
+        }
+
         virtual public void Move(int x, int y)
         {
             X = x;

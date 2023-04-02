@@ -12,6 +12,16 @@ namespace ChessEngine.Pieces
         {
             Value = 1000;
         }
+        private King(bool isBlack, int x, int y, bool hasMoved) : base(isBlack, x, y, hasMoved)
+        {
+            Value = 1000;
+        }
+
+        public override Piece Copy()
+        {
+            var king = new King(IsBlack, X, Y, HasMoved);
+            return king;
+        }
 
         internal override List<Vector2> GetPossibleMoves(List<Piece> pieces, bool ignoreKing = false)
         {

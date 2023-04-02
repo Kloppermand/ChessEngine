@@ -12,6 +12,10 @@ namespace ChessEngine.Pieces
         {
             Value = 9;
         }
+        public override Piece Copy()
+        {
+            return new Queen(IsBlack, X, Y);
+        }
 
         internal override List<Vector2> GetPossibleMoves(List<Piece> pieces, bool ignoreKing = false)
         {

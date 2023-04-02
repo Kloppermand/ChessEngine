@@ -72,7 +72,7 @@ namespace ChessEngine
             _font = Content.Load<SpriteFont>("Font");
 
             _player1 = new Engines.RandomMoves();
-            _player2 = new Engines.RandomMoves();
+            _player2 = new Engines.AlwaysTakes();
 
 
             _board = new Board("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"); // Start position
@@ -164,7 +164,7 @@ namespace ChessEngine
                 }
                 else
                 {
-                    _board.MovePiece(currentPlayer.GetMove(_board.Copy()));
+                    _board.MovePiece(currentPlayer.GetMove(new Board(_board)));
                 }
             }
             base.Update(gameTime);
