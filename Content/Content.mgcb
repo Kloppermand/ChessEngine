@@ -20,11 +20,11 @@
 /processorParam:TextureFormat=Compressed
 /build:File.spritefont;Font.spritefont
 
-#begin Sounds/move-self.mp3
+#begin Sounds/Normal/Move.mp3
 /importer:Mp3Importer
 /processor:SongProcessor
 /processorParam:Quality=Best
-/build:Sounds/move-self.mp3
+/build:Sounds/Normal/Move.mp3
 
 #begin SpritePngs/AgressiveDerp/BlackBishop.png
 /importer:TextureImporter

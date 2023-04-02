@@ -7,7 +7,9 @@ namespace ChessEngine.Engines
 {
     class HyperAgression : IPlayer
     {
-        public string PieceSpriteFolderName { get; set; } = "AgressiveDerp";
+        public AssetHelper.Sprites PieceSpriteFolderName { get; set; } = AssetHelper.Sprites.AgressiveDerp;
+        public AssetHelper.Sounds SoundsFolderName { get; set; } = AssetHelper.Sounds.Normal;
+
         private bool _playerIsBlack;
         private Random rng = new Random();
         public Move GetMove(Board board)

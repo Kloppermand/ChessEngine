@@ -7,7 +7,8 @@ namespace ChessEngine
 {
     interface IPlayer
     {
-        public string PieceSpriteFolderName { get; set; }
+        public AssetHelper.Sprites PieceSpriteFolderName { get; set; }
+        public AssetHelper.Sounds SoundsFolderName { get; set; }
         public Move GetMove(Board board);
     }
 }

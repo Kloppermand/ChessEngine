@@ -7,7 +7,8 @@ namespace ChessEngine
 {
     class Human : IPlayer
     {
-        public string PieceSpriteFolderName { get; set; } = "Normal";
+        public AssetHelper.Sprites PieceSpriteFolderName { get; set; } = AssetHelper.Sprites.Normal;
+        public AssetHelper.Sounds SoundsFolderName { get; set; } = AssetHelper.Sounds.Normal;
 
         public Move GetMove(Board board)
         {

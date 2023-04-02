@@ -6,7 +6,8 @@ namespace ChessEngine.Engines
 {
     class Pacifist : IPlayer
     {
-        public string PieceSpriteFolderName { get; set; } = "Normal";
+        public AssetHelper.Sprites PieceSpriteFolderName { get; set; } = AssetHelper.Sprites.Normal;
+        public AssetHelper.Sounds SoundsFolderName { get; set; } = AssetHelper.Sounds.Normal;
         private bool _playerIsBlack;
         private Random rng = new Random();
         public Move GetMove(Board board)

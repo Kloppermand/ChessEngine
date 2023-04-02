@@ -92,23 +92,27 @@ namespace ChessEngine
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            var player1Folder = _player1.PieceSpriteFolderName ?? "Derp";
-            var player2Folder = _player2.PieceSpriteFolderName ?? "Derp";
+            var player1SpriteFolder = _player1.PieceSpriteFolderName.ToString() ?? "Derp";
+            var player2SpriteFolder = _player2.PieceSpriteFolderName.ToString() ?? "Derp";
 
-            _blackPawnSprite =   Content.Load<Texture2D>($"SpritePngs/{player2Folder}/BlackPawn");
-            _whitePawnSprite =   Content.Load<Texture2D>($"SpritePngs/{player1Folder}/WhitePawn");
-            _blackRookSprite =   Content.Load<Texture2D>($"SpritePngs/{player2Folder}/BlackRook");
-            _whiteRookSprite =   Content.Load<Texture2D>($"SpritePngs/{player1Folder}/WhiteRook");
-            _blackKnightSprite = Content.Load<Texture2D>($"SpritePngs/{player2Folder}/BlackKnight");
-            _whiteKnightSprite = Content.Load<Texture2D>($"SpritePngs/{player1Folder}/WhiteKnight");
-            _blackBishopSprite = Content.Load<Texture2D>($"SpritePngs/{player2Folder}/BlackBishop");
-            _whiteBishopSprite = Content.Load<Texture2D>($"SpritePngs/{player1Folder}/WhiteBishop");
-            _blackQueenSprite =  Content.Load<Texture2D>($"SpritePngs/{player2Folder}/BlackQueen");
-            _whiteQueenSprite =  Content.Load<Texture2D>($"SpritePngs/{player1Folder}/WhiteQueen");
-            _blackKingSprite =   Content.Load<Texture2D>($"SpritePngs/{player2Folder}/BlackKing");
-            _whiteKingSprite =   Content.Load<Texture2D>($"SpritePngs/{player1Folder}/WhiteKing");
+            _blackPawnSprite =   Content.Load<Texture2D>($"SpritePngs/{player2SpriteFolder}/BlackPawn");
+            _whitePawnSprite =   Content.Load<Texture2D>($"SpritePngs/{player1SpriteFolder}/WhitePawn");
+            _blackRookSprite =   Content.Load<Texture2D>($"SpritePngs/{player2SpriteFolder}/BlackRook");
+            _whiteRookSprite =   Content.Load<Texture2D>($"SpritePngs/{player1SpriteFolder}/WhiteRook");
+            _blackKnightSprite = Content.Load<Texture2D>($"SpritePngs/{player2SpriteFolder}/BlackKnight");
+            _whiteKnightSprite = Content.Load<Texture2D>($"SpritePngs/{player1SpriteFolder}/WhiteKnight");
+            _blackBishopSprite = Content.Load<Texture2D>($"SpritePngs/{player2SpriteFolder}/BlackBishop");
+            _whiteBishopSprite = Content.Load<Texture2D>($"SpritePngs/{player1SpriteFolder}/WhiteBishop");
+            _blackQueenSprite =  Content.Load<Texture2D>($"SpritePngs/{player2SpriteFolder}/BlackQueen");
+            _whiteQueenSprite =  Content.Load<Texture2D>($"SpritePngs/{player1SpriteFolder}/WhiteQueen");
+            _blackKingSprite =   Content.Load<Texture2D>($"SpritePngs/{player2SpriteFolder}/BlackKing");
+            _whiteKingSprite =   Content.Load<Texture2D>($"SpritePngs/{player1SpriteFolder}/WhiteKing");
 
-            _sounds = Content.Load<Song>("Sounds/move-self");
+            var player1SoundFolder = _player1.SoundsFolderName.ToString() ?? "Normal";
+            var player2SoundFolder = _player2.SoundsFolderName.ToString() ?? "Normal";
+
+            _sounds = Content.Load<Song>($"Sounds/{player1SoundFolder}/Move");
+            _sounds = Content.Load<Song>($"Sounds/{player2SoundFolder}/Move");
         }
 
         protected override void Update(GameTime gameTime)

@@ -6,7 +6,8 @@ namespace ChessEngine.Engines
 {
     class RandomMoves : IPlayer
     {
-        public string PieceSpriteFolderName { get; set; } = "Derp";
+        public AssetHelper.Sprites PieceSpriteFolderName { get; set; } = AssetHelper.Sprites.Derp;
+        public AssetHelper.Sounds SoundsFolderName { get; set; } = AssetHelper.Sounds.Normal;
         private Random rng = new Random();
 
         public Move GetMove(Board board)
