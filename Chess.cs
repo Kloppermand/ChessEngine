@@ -26,6 +26,8 @@ namespace ChessEngine
         private Board _board;
         private IPlayer _player1;
         private IPlayer _player2;
+        bool _hasRunWinSound;
+        Thread _thread;
 
         public Chess()
         {
@@ -65,11 +67,12 @@ namespace ChessEngine
             _font = Content.Load<SpriteFont>("Font");
 
             _player1 = new Engines.HyperAgression();
-            _player2 = new Engines.RandomMoves();
+            _player2 = new Human();
 
 
-            _board = new Board("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR b"); // Start position
+            _board = new Board("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w"); // Start position
             _board.SaveOldBoads = false;
+            _hasRunWinSound = false;
 
             _lastPickup = 100;
             _lastMove = 0;
@@ -102,8 +105,10 @@ namespace ChessEngine
             var player2SoundFolder = _player2.SoundsFolderName.ToString() ?? "Normal";
 
             _sounds = new Dictionary<string, Song>();
-            _sounds.Add("whiteMove",Content.Load<Song>($"Sounds/{player1SoundFolder}/Move"));
-            _sounds.Add("blackMove",Content.Load<Song>($"Sounds/{player2SoundFolder}/Move"));
+            _sounds.Add("whiteMove", Content.Load<Song>($"Sounds/{player1SoundFolder}/Move"));
+            _sounds.Add("blackMove", Content.Load<Song>($"Sounds/{player2SoundFolder}/Move"));
+            _sounds.Add("whiteWin", Content.Load<Song>($"Sounds/{player1SoundFolder}/Win"));
+            _sounds.Add("blackWin", Content.Load<Song>($"Sounds/{player2SoundFolder}/Win"));
         }
 
         protected override void Update(GameTime gameTime)
@@ -112,9 +117,9 @@ namespace ChessEngine
                 Exit();
 
             if (Keyboard.GetState().IsKeyDown(Keys.R))
-                _board = new Board("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
+                Initialize();
 
-                _lastMove++;
+            _lastMove++;
             if (!_board.GameIsOver && _lastMove > 30)
             {
                 _lastPickup++;
@@ -158,7 +163,7 @@ namespace ChessEngine
 
                                     if (targetPiece is null || targetPiece.IsBlack != _grabbed.IsBlack)
                                     {
-                                        MediaPlayer.Play(_sounds[_board.IsBlackMove? "blackMove": "whiteMove"]);
+                                        MediaPlayer.Play(_sounds[_board.IsBlackMove ? "blackMove" : "whiteMove"]);
                                         _board.MovePiece(new Move(_grabbed.GetPosition(), new Vector2(clickedX, clickedY)));
                                         _grabbed = null;
                                         _lastPickup = 0;
@@ -175,6 +180,14 @@ namespace ChessEngine
                     _board.MovePiece(currentPlayer.GetMove(new Board(_board)));
                     _lastMove = 0;
                 }
+
+            }
+            
+            if (_board.GameIsOver && !_hasRunWinSound)
+            {
+                _thread = new Thread(() => MediaPlayer.Play(_sounds[!_board.IsBlackMove ? "blackWin" : "whiteWin"]));
+                _thread.Start();
+                _hasRunWinSound = true;
             }
             base.Update(gameTime);
         }
@@ -207,7 +220,7 @@ namespace ChessEngine
             foreach (var piece in _board.Pieces)
             {
                 if (piece != _grabbed)
-                    _spriteBatch.Draw(GetSprite(piece), new Rectangle(piece.X * 100, piece.Y * 100,100,100), Color.White);
+                    _spriteBatch.Draw(GetSprite(piece), new Rectangle(piece.X * 100, piece.Y * 100, 100, 100), Color.White);
             }
 
             // Draw grabbed 
@@ -221,6 +234,7 @@ namespace ChessEngine
                 }
             }
 
+            // Draw Winner
             if (_board.GameIsOver)
             {
                 var winnerString = $"{_board.GetWinner()} won!";

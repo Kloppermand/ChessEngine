@@ -26,11 +26,35 @@
 /processorParam:Quality=Best
 /build:Sounds/Derp/Move.mp3
 
+#begin Sounds/Derp/Move.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Sounds/Derp/Move.mp3
+
+#begin Sounds/Derp/Win.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Sounds/Derp/Win.mp3
+
 #begin Sounds/Normal/Move.mp3
 /importer:Mp3Importer
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:Sounds/Normal/Move.mp3
+
+#begin Sounds/Normal/Move.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Sounds/Normal/Move.mp3
+
+#begin Sounds/Normal/Win.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Sounds/Normal/Win.mp3
 
 #begin SpritePngs/AgressiveDerp/BlackBishop.png
 /importer:TextureImporter
