@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,7 @@ namespace ChessEngine
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+        private Song _sounds;
         private Texture2D _blackPawnSprite;
         private Texture2D _whitePawnSprite;
         private Texture2D _blackRookSprite;
@@ -93,18 +95,23 @@ namespace ChessEngine
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            _blackPawnSprite = Content.Load<Texture2D>("SpritePngs/AgressiveDerp/BlackPawn");
-            _whitePawnSprite = Content.Load<Texture2D>("SpritePngs/Derp/WhitePawn");
-            _blackRookSprite = Content.Load<Texture2D>("SpritePngs/AgressiveDerp/BlackRook");
-            _whiteRookSprite = Content.Load<Texture2D>("SpritePngs/Derp/WhiteRook");
-            _blackKnightSprite = Content.Load<Texture2D>("SpritePngs/AgressiveDerp/BlackKnight");
-            _whiteKnightSprite = Content.Load<Texture2D>("SpritePngs/Derp/WhiteKnight");
-            _blackBishopSprite = Content.Load<Texture2D>("SpritePngs/AgressiveDerp/BlackBishop");
-            _whiteBishopSprite = Content.Load<Texture2D>("SpritePngs/Derp/WhiteBishop");
-            _blackQueenSprite = Content.Load<Texture2D>("SpritePngs/AgressiveDerp/BlackQueen");
-            _whiteQueenSprite = Content.Load<Texture2D>("SpritePngs/Derp/WhiteQueen");
-            _blackKingSprite = Content.Load<Texture2D>("SpritePngs/AgressiveDerp/BlackKing");
-            _whiteKingSprite = Content.Load<Texture2D>("SpritePngs/Derp/WhiteKing");
+            var player1Folder = _player1.PieceSpriteFolderName ?? "Derp";
+            var player2Folder = _player1.PieceSpriteFolderName ?? "Derp";
+
+            _blackPawnSprite =   Content.Load<Texture2D>($"SpritePngs/{player2Folder}/BlackPawn");
+            _whitePawnSprite =   Content.Load<Texture2D>($"SpritePngs/{player1Folder}/WhitePawn");
+            _blackRookSprite =   Content.Load<Texture2D>($"SpritePngs/{player2Folder}/BlackRook");
+            _whiteRookSprite =   Content.Load<Texture2D>($"SpritePngs/{player1Folder}/WhiteRook");
+            _blackKnightSprite = Content.Load<Texture2D>($"SpritePngs/{player2Folder}/BlackKnight");
+            _whiteKnightSprite = Content.Load<Texture2D>($"SpritePngs/{player1Folder}/WhiteKnight");
+            _blackBishopSprite = Content.Load<Texture2D>($"SpritePngs/{player2Folder}/BlackBishop");
+            _whiteBishopSprite = Content.Load<Texture2D>($"SpritePngs/{player1Folder}/WhiteBishop");
+            _blackQueenSprite =  Content.Load<Texture2D>($"SpritePngs/{player2Folder}/BlackQueen");
+            _whiteQueenSprite =  Content.Load<Texture2D>($"SpritePngs/{player1Folder}/WhiteQueen");
+            _blackKingSprite =   Content.Load<Texture2D>($"SpritePngs/{player2Folder}/BlackKing");
+            _whiteKingSprite =   Content.Load<Texture2D>($"SpritePngs/{player1Folder}/WhiteKing");
+
+            _sounds = Content.Load<Song>("Sounds/move-self");
         }
 
         protected override void Update(GameTime gameTime)
@@ -163,6 +170,7 @@ namespace ChessEngine
                                     if (targetPiece is null || targetPiece.IsBlack != _grabbed.IsBlack)
                                     {
                                         _board.MovePiece(new Move(_grabbed.GetPosition(), new Vector2(clickedX, clickedY)));
+                                        MediaPlayer.Play(_sounds);
                                         _grabbed = null;
                                         _lastPickup = 0;
                                     }
@@ -175,6 +183,7 @@ namespace ChessEngine
                 else
                 {
                     _board.MovePiece(currentPlayer.GetMove(new Board(_board)));
+                    MediaPlayer.Play(_sounds);
                     _lastMove = 0;
                 }
             }
