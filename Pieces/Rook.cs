@@ -9,6 +9,7 @@ namespace ChessEngine.Pieces
     {
         public Rook(bool isBlack, int x, int y) : base(isBlack, x, y)
         {
+            Value = 5;
         }
 
         internal override List<Vector2> GetPossibleMoves(List<Piece> pieces, bool ignoreKing = false)

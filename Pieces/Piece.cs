@@ -14,6 +14,7 @@ namespace ChessEngine.Pieces
         public int Y { get; set; }
         public bool IsBlack { get; }
         public bool HasMoved { get; private set; } = false;
+        public int Value { get; set; }
 
 
         public Piece(bool isBlack, int x, int y)

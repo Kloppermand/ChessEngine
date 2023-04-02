@@ -12,6 +12,7 @@ namespace ChessEngine.Pieces
         public bool CanBeEnPassant { get; set; }
         public Pawn(bool isBlack, int x, int y) : base(isBlack, x, y)
         {
+            Value = 1;
         }
 
         internal override List<Vector2> GetPossibleMoves(List<Piece> pieces, bool ignoreKing = false)

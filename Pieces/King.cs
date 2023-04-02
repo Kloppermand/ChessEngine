@@ -10,6 +10,7 @@ namespace ChessEngine.Pieces
     {
         public King(bool isBlack, int x, int y) : base(isBlack, x, y)
         {
+            Value = 1000;
         }
 
         internal override List<Vector2> GetPossibleMoves(List<Piece> pieces, bool ignoreKing = false)
