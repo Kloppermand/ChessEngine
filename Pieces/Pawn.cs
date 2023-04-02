@@ -20,7 +20,7 @@ namespace ChessEngine.Pieces
         }
         public override Piece Copy()
         {
-            var pawn = new Pawn(IsBlack, X, Y);
+            var pawn = new Pawn(IsBlack, X, Y, HasMoved);
             pawn.CanBeEnPassant = this.CanBeEnPassant;
             return pawn;
         }

@@ -133,8 +133,9 @@ namespace ChessEngine
                         int clickedX = _mouse.X / 100;
                         int clickedY = _mouse.Y / 100;
 
-                        if (_lastPickup > 15)
+                        if (_lastPickup > 10)
                         {
+                            // Grab piece
                             if (_grabbed is null)
                             {
                                 var tmpGrabbed = _board.Pieces.Find(p => p.X == clickedX && p.Y == clickedY);
@@ -147,12 +148,14 @@ namespace ChessEngine
                             }
                             else
                             {
+                                // Place piece back
                                 if (_grabbed.X == clickedX && _grabbed.Y == clickedY)
                                 {
                                     _grabbed = null;
                                     _lastPickup = 0;
                                 }
 
+                                // Move piece
                                 else if (_grabbed.GetPossibleMoves(_board.Pieces).Contains(new Vector2(clickedX, clickedY)))
                                 {
                                     var targetPiece = _board.Pieces.Find(p => p.X == clickedX && p.Y == clickedY);
