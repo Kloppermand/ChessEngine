@@ -68,8 +68,8 @@ namespace ChessEngine
             _player2 = new Engines.Pacifist();
 
 
-            _board = new Board("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"); // Start position
-            _board.SaveOldBoads = true;
+            _board = new Board("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR b"); // Start position
+            _board.SaveOldBoads = false;
 
             _lastPickup = 100;
             _lastMove = 0;
@@ -111,10 +111,7 @@ namespace ChessEngine
                 Exit();
 
             if (Keyboard.GetState().IsKeyDown(Keys.R))
-            {
                 _board = new Board("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
-                _board.SaveOldBoads = true;
-            }
 
                 _lastMove++;
             if (!_board.GameIsOver && _lastMove > 30)

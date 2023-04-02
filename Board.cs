@@ -211,6 +211,9 @@ namespace ChessEngine
                 if(i < 8)
                     fen += "/";
             }
+
+            fen += IsBlackMove ? " b" : " w";
+
             return fen;
         }
 
@@ -218,9 +221,14 @@ namespace ChessEngine
         {
             if (Pieces is null) Pieces = new List<Pieces.Piece>();
 
+            var parts = posistion.Split(' ');
+
+            if (parts.Length > 1)
+                IsBlackMove = parts[1].Equals("b");
+
             int x = 1;
             int y = 1;
-            foreach (var c in posistion)
+            foreach (var c in parts[0])
             {
                 switch (c)
                 {
